@@ -4,4 +4,29 @@
   - name: install python
     raw: dnf update -y && dnf install -y python3
   - name: install apache
-    ping:
+    yum:
+      name: httpd
+      state: present
+  - name: edit apache port conf
+    lineinfile:
+      line: Listen 8080
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen '
+      insertafter: '^#Listen '
+    notify:
+    - restart service
+  - name: edit index.html
+    copy:
+      content: Welcome to our web server
+      dest: /var/www/html/index.html
+    notify:
+    - restart service
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started    
+  handlers:
+  - name: restart service
+    service:
+      name: httpd
+      state: restarted
