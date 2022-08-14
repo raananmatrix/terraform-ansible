@@ -100,7 +100,6 @@ resource "aws_instance" "web-server" {
 }
 
 resource "null_resource" "ansible-server" {
-  depends_on    = [aws_instance.web-server,aws_instance.ansible-server]
   connection {
     type        = "ssh"
     user        = "ec2-user"
