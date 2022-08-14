@@ -81,10 +81,10 @@ resource "aws_instance" "ansible-server" {
   }
   user_data       = <<EOF
 #!/bin/bash
-sudo yum update -y
-sudo yum install -y python39 git
-python3 -m pip install --user ansible
-git clone https://github.com/raananmatrix/terraform-ansible.git
+yum update -y
+yum install -y python39 git
+runuser -l ec2-user -- python3 -m pip install --user ansible
+runuser -l ec2-user -- git clone https://github.com/raananmatrix/terraform-ansible.git
 EOF
 }
 
