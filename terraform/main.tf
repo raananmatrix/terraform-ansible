@@ -31,7 +31,7 @@ resource "null_resource" "ansible-server" {
   }
   provisioner "remote-exec" {
     inline = [
-      "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user -T 30 -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/playbooks/apache.yaml",
+      "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -v -u ec2-user -T 60 -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/playbooks/apache.yaml",
     ]
   }
 }
