@@ -108,7 +108,7 @@ resource "null_resource" "ansible-server" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sleep 30 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -v -u ec2-user --private-key ${var.ansible_private_key} -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/terraform-ansible/ansible/apache.yaml",
+      "sleep 30 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -v -u ec2-user -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/terraform-ansible/ansible/apache.yaml",
     ]
   }
 }
