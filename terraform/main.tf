@@ -11,7 +11,7 @@ variable "ansible_private_key" {}
 variable "ansible_host" {}
 
 resource "aws_instance" "web-server" {
-  count           = 2
+  count           = 3
   ami             = "ami-0460bf124812bebfa"
   instance_type   = "t2.micro"
   security_groups =  [ "MyWebSG" ]
