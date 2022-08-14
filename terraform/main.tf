@@ -7,6 +7,9 @@ terraform {
   }
 }
 
+variable "ansible_private_key" {}
+variable "ansible_host" {}
+
 resource "aws_instance" "web-server-1" {
   ami             = "ami-0460bf124812bebfa"
   instance_type   = "t2.micro"
