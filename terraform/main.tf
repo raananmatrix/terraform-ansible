@@ -7,17 +7,6 @@ terraform {
   }
 }
 
-variable "ansible_private_key" {}
-variable "ansible_host" {}
-variable "instance_count" {
-  default = 2
-  type    = number
-}
-variable "instance_type" {
-  default = "t2.micro"
-  type    = string
-}
-
 data "aws_ami" "rhel" {
   most_recent = true
   filter {
