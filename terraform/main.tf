@@ -6,7 +6,9 @@ terraform {
     }
   }
 }
-
+/*
+  test
+*/
 
 resource "aws_instance" "web-server-1" {
   ami             = "ami-0460bf124812bebfa"
