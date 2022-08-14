@@ -1,0 +1,7 @@
+- name: apache
+  hosts: all
+  tasks:
+  - name: install python
+    raw: dnf update -y && dnf install -y python3
+  - name: install apache
+    ping:
