@@ -105,7 +105,7 @@ resource "null_resource" "ansible-server" {
     type        = "ssh"
     user        = "ec2-user"
     private_key = var.ansible_private_key
-    host        = var.ansible_host
+    host        = aws_instance.ansible-server.public_ip
   }
   provisioner "remote-exec" {
     inline = [
