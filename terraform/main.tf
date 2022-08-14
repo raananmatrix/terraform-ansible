@@ -29,7 +29,7 @@ resource "null_resource" "ansible-server" {
   }
   provisioner "remote-exec" {
     inline = [
-      "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user -b --private-key ${var.ansible_private_key} -i ${aws_instance.web-server-1.public_ip} /home/ec2-user/playbooks/hardening-playbook.yaml",
+      "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user -b --private-key ${var.ansible_private_key} -i ${aws_instance.web-server-1.public_ip} /home/ec2-user/playbooks/nginx.yaml",
     ]
   }
 }
