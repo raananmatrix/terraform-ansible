@@ -11,7 +11,7 @@ data "aws_ami" "rhel" {
   most_recent = true
   filter {
     name   = "name"
-    values = ["309956199498/RHEL-8.6.0_HVM-*-x86_64-2-Hourly2-GP2"]
+    values = ["RHEL-8.6.0_HVM-*-x86_64-2-Hourly2-GP2"]
   }
   filter {
     name   = "virtualization-type"
