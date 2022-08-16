@@ -22,7 +22,7 @@ resource "aws_lb_target_group_attachment" "web-servers-attachment" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.web-servers-lb.arn
   port              = "80"
-  protocol          = "HTTP"
+  protocol          = "TCP"
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.web-servers-target-group.arn
