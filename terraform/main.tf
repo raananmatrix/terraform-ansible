@@ -85,6 +85,7 @@ yum update -y
 yum install -y python39 git
 runuser -l ec2-user -- python3 -m pip install --user ansible
 runuser -l ec2-user -- git clone https://github.com/raananmatrix/terraform-ansible.git
+runuser -l ec2-user -- mkdir /home/ec2-user/.ssh && echo ${var.ansible_private_key} > ~/.ssh/id_rsa
 EOF
 }
 
@@ -111,7 +112,7 @@ resource "null_resource" "ansible-server" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sleep 30 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -v -u ec2-user --private-key ${var.ansible_private_key} -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/terraform-ansible/ansible/apache.yaml",
+      "sleep 30 && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -v -u ec2-user --private-key /home/ec2-user/.ssh/id_rsa -b -i ${join(",", aws_instance.web-server[*].public_ip)}, /home/ec2-user/terraform-ansible/ansible/apache.yaml",
     ]
   }
 }
