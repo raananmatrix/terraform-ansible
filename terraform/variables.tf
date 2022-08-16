@@ -1,7 +1,5 @@
 variable "ansible_private_key" {}
 
-variable "ansible_host" {}
-
 variable "server_public_key" {}
 
 variable "instance_count" {
