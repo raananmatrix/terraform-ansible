@@ -96,7 +96,7 @@ resource "aws_instance" "ansible-server" {
   }
   provisioner "file" {
     content       = var.ansible_private_key
-    destination   = /home/ec2-user/.ssh/id_rsa
+    destination   = "/home/ec2-user/.ssh/id_rsa"
   }
 }
 
