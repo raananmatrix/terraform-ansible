@@ -85,7 +85,6 @@ resource "aws_instance" "ansible-server" {
       "sudo yum install -y python39 git",
       "python3 -m pip install --user ansible",
       "git clone https://github.com/raananmatrix/terraform-ansible.git",
-      "mkdir /home/ec2-user/.ssh",
     ]
     connection {
       type        = "ssh"
