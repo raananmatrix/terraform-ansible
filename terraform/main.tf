@@ -79,13 +79,9 @@ resource "aws_instance" "ansible-server" {
   tags            = {
     Name = "ansible-server"
   }
-  provisioner "remote-exec" {
-    inline        = [
-      "sudo yum update -y",
-      "sudo yum install -y python39 git",
-      "python3 -m pip install --user ansible",
-      "git clone https://github.com/raananmatrix/terraform-ansible.git",
-    ]
+  provisioner "file" {
+    content       = var.ansible_private_key
+    destination   = "/home/ec2-user/.ssh/id_rsa"
     connection {
       type        = "ssh"
       user        = "ec2-user"
@@ -93,9 +89,15 @@ resource "aws_instance" "ansible-server" {
       host        = self.public_ip
     }
   }
-  provisioner "file" {
-    content       = var.ansible_private_key
-    destination   = "/home/ec2-user/.ssh/id_rsa"
+  provisioner "remote-exec" {
+    inline        = [
+      "sudo yum update -y",
+      "sudo yum install -y python39 git",
+      "python3 -m pip install --user ansible",
+      "git clone https://github.com/raananmatrix/terraform-ansible.git",
+      "sudo chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa",
+      "sudo chmod 0400 /home/ec2-user/.ssh/id_rsa",
+    ]
     connection {
       type        = "ssh"
       user        = "ec2-user"
