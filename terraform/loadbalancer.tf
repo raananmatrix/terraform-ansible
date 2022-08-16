@@ -8,7 +8,7 @@ resource "aws_lb" "web-servers-lb" {
 resource "aws_lb_target_group" "web-servers-target-group" {
   name     = "web-servers-target-group"
   port     = 80
-  protocol = "HTTP"
+  protocol = "TCP"
   vpc_id   = data.aws_vpc.default.id
 }
 
