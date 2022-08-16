@@ -17,7 +17,7 @@
     - restart service
   - name: edit index.html
     copy:
-      content: Welcome to our web server
+      content: "Welcome to our web server, running on host {{ ansible_facts['hostname'] }}"
       dest: /var/www/html/index.html
     notify:
     - restart service
