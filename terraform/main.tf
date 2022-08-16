@@ -79,14 +79,22 @@ resource "aws_instance" "ansible-server" {
   tags            = {
     Name = "ansible-server"
   }
-  user_data       = <<EOF
-#!/bin/bash
-yum update -y
-yum install -y python39 git
-runuser -l ec2-user -- python3 -m pip install --user ansible
-runuser -l ec2-user -- git clone https://github.com/raananmatrix/terraform-ansible.git
-runuser -l ec2-user -- mkdir /home/ec2-user/.ssh && echo ${var.ansible_private_key} > ~/.ssh/id_rsa
-EOF
+  provisioner "remote-exec" {
+    inline        = [
+      "sudo yum update -y",
+      "sudo yum install -y python39 git",
+      "python3 -m pip install --user ansible",
+      "git clone https://github.com/raananmatrix/terraform-ansible.git",
+      "mkdir /home/ec2-user/.ssh",
+      "echo ${var.ansible_private_key} > ~/.ssh/id_rsa",
+    ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = var.ansible_private_key
+      host        = self.public_ip
+    }
+  }  
 }
 
 resource "aws_instance" "web-server" {
