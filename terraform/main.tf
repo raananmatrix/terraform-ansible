@@ -100,6 +100,9 @@ resource "aws_instance" "web-server" {
 }
 
 resource "null_resource" "ansible-server" {
+  triggers = {
+    web_server_arns = join(",", aws_instance.web-server.*.arn)
+  }
   connection {
     type        = "ssh"
     user        = "ec2-user"
