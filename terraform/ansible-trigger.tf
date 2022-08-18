@@ -14,3 +14,6 @@ resource "null_resource" "ansible-server" {
     ]
   }
 }
+/*
+  comment
+*/
